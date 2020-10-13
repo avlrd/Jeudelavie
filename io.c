@@ -52,8 +52,8 @@ void debut_jeu(grille *g, grille *gc){
 				char nouvelle_grille[50];
 				scanf("%s", nouvelle_grille);
 				init_grille_from_file(nouvelle_grille, g);
-				alloue_grille(g->nbl, g->nbc, &gc);
-				affiche_grille(g)
+				alloue_grille(g->nbl, g->nbc, gc);
+				affiche_grille(*g);
 				break;
 			}
 
