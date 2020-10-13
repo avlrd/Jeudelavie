@@ -43,6 +43,20 @@ void debut_jeu(grille *g, grille *gc){
 				affiche_grille(*g);
 				break;
 			}
+
+			case 'n' :
+			{ // touche "n" pour créer une nouvelle grille
+				libere_grille(g);
+				libere_grille(gc);
+				printf("Entrez le nom de votre grille : ");
+				char nouvelle_grille[50];
+				scanf("%s", nouvelle_grille);
+				init_grille_from_file(nouvelle_grille, g);
+				alloue_grille(g->nbl, g->nbc, &gc);
+				affiche_grille(g)
+				break;
+			}
+
 			default : 
 			{ // touche non traitée
 				printf("\n\e[1A");
