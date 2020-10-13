@@ -14,7 +14,7 @@ clean:
 	rm $(EXEC) $(OBJETS)
 
 doc:
-	Doxygen doxyfile 
+	doxygen Doxyfile 
 
 dist:	
 	tar -Jcvf GoL_AV.tar.xz .*.c *.h makefile Doxyfile README.md
