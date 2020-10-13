@@ -14,7 +14,7 @@ void alloue_grille(int l, int c, grille* g)
 void libere_grille(grille* g)
 {
 	int i;
-	g->nbl=l;
+	int l = g->nbl;
 	for(i=0; i<l; i++)
 		free(g->cellules[i]);
 	free(g->cellules);
