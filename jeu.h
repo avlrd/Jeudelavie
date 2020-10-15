@@ -1,3 +1,10 @@
+/**
+ *	\file jeu.h
+ *	header pour les fonctions principales du jeu
+ *	\author Arthur Villard
+*/
+
+
 #ifndef __JEU_H
 #define __JEU_H
 
