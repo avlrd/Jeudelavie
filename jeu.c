@@ -6,6 +6,10 @@
 
 
 #include "jeu.h"
+#include <stdbool.h>
+
+extern bool cyclique;
+
 
 int compte_voisins_vivants (int i, int j, grille g){
 	int v = 0, l=g.nbl, c = g.nbc;
@@ -21,6 +25,26 @@ int compte_voisins_vivants (int i, int j, grille g){
 	return v; 
 }
 
+/**
+ *	\fn int compte_voisins_vivants_nc(int i, int j, grille g)
+*/
+
+int compte_voisins_vivants_nc(int i, int j, grille g){
+	int v=0, l=g.nbl, c = g.nbc;
+
+		v+= (i>0&&j>0) ? est_vivante(i-1,j-1,g) : 0;
+		v+= (i>0) ? est_vivante(i-1,j,g) : 0;
+		v+= (i>0&&j>c-1) ? est_vivante(i-1,j+1,g) : 0;
+		v+= (j>0) ? est_vivante(i,j-1,g) : 0;
+		v+= (j<c-1) ? est_vivante(i,j+1,g) : 0;
+		v+= (i<l-1&&j>0) ? est_vivante(i+1,j-1,g) : 0;
+		v+= (i<l-1) ? est_vivante(i+1,j,g) : 0;
+		v+= (i<l-1&&j<c-1) ? est_vivante(i+1,j+1,g) : 0;
+
+	
+	return v; 
+}
+
 /** 
  *	\fn void evolue(grille *g, grille *gc)
  *	\param g pointeur vers une grille
@@ -28,17 +52,20 @@ int compte_voisins_vivants (int i, int j, grille g){
  *	\brief fait évoluer la grille g d'un pas dans le temps
  */
 
-void evolue (grille *g, grille *gc){
+void evolue (grille *g, grille *gc, int vieillissement, int (*fonction) (int, int, grille))
+{
 	copie_grille (*g,*gc); // copie temporaire de la grille
 	int i,j,l=g->nbl, c = g->nbc,v;
 	for (i=0; i<l; i++)
 	{
 		for (j=0; j<c; ++j)
 		{
-			v = compte_voisins_vivants (i, j, *gc);
-			if (est_vivante(i,j,*g)) 
+			v = fonction(i, j, *gc);
+			if (est_vivante(i,j,*gc)) 
 			{ // evolution d'une cellule vivante
-				if ( v!=2 && v!= 3 ) set_morte(i,j,*g);
+				if ((g->cellules[i][j] >= 8 && vieillissement) || (v!=2 && v!=3)) set_morte(i,j,*g);
+
+				else g->cellules[i][j]= g->cellules[i][j]+ 1;
 			}
 			else 
 			{ // evolution d'une cellule morte
