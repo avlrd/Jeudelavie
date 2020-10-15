@@ -10,6 +10,13 @@
 
 extern bool cyclique;
 
+/**
+ *	\fn int compte_voisins_vivants_nc(int i, int j, grille g)
+ *	\param i entier
+ *	\param j entier
+ *	\param g une grille
+ *	\brief compte le nombre de voisins vivants de façon cyclique
+*/
 
 int compte_voisins_vivants (int i, int j, grille g){
 	int v = 0, l=g.nbl, c = g.nbc;
@@ -27,6 +34,10 @@ int compte_voisins_vivants (int i, int j, grille g){
 
 /**
  *	\fn int compte_voisins_vivants_nc(int i, int j, grille g)
+ *	\param i entier
+ *	\param j entier
+ *	\param g une grille
+ *	\brief compte le nombre de voisins vivants de façon non cyclique
 */
 
 int compte_voisins_vivants_nc(int i, int j, grille g){
