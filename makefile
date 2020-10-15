@@ -17,4 +17,4 @@ doc:
 	doxygen Doxyfile 
 
 dist:	
-	tar -Jcvf GoL_AV.tar.xz .*.c *.h makefile Doxyfile README.md
+	tar -Jcvf VillardArthur-GoL-v0.1.tar.xz *.c *.h makefile Doxyfile README.md
