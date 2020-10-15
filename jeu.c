@@ -1,3 +1,10 @@
+/**
+ *	\file jeu.c
+ *	fonctionnement du jeu
+ *	\author Arthur Villard
+*/
+
+
 #include "jeu.h"
 
 int compte_voisins_vivants (int i, int j, grille g){
@@ -13,6 +20,13 @@ int compte_voisins_vivants (int i, int j, grille g){
 
 	return v; 
 }
+
+/** 
+ *	\fn void evolue(grille *g, grille *gc)
+ *	\param g pointeur vers une grille
+ *	\param gc pointeur vers une grille (copie)
+ *	\brief fait évoluer la grille g d'un pas dans le temps
+ */
 
 void evolue (grille *g, grille *gc){
 	copie_grille (*g,*gc); // copie temporaire de la grille
