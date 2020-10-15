@@ -1,3 +1,10 @@
+/**
+ *	\file grille.h
+ *	header pour les fonctions liées aux grilles du jeu
+ *	\author Arthur Villard
+*/
+
+
 #ifndef __GRILLE_H
 #define __GRILLE_H
 
