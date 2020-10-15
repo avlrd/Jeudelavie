@@ -1,8 +1,21 @@
-#include <stdio.h>
+/**
+ *	\file main.c
+ *	fonction main
+ *	\author Arthur Villard
+*/
 
+
+#include <stdio.h>
 #include "grille.h"
 #include "io.h"
 #include "jeu.h"
+
+/**
+ *	\fn int main(int argc, char** argv)
+ *	\param argc
+ *	\param argv pointeur sur un tableau de charactere (nom de fichier)
+ *	\brief fonction main
+*/
 
 int main (int argc, char ** argv) {
 	
