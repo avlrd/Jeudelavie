@@ -4,8 +4,11 @@
  *	\author Arthur Villard
 */
 
-
 #include "io.h"
+#include <stdbool.h>
+
+bool cyclique = true;
+bool vieillissement = false;
 
 /**
  *	\fn void affiche_trait (int c)
@@ -76,7 +79,10 @@ void debut_jeu(grille *g, grille *gc){
 		switch (c) {
 			case '\n' : 
 			{ // touche "entree" pour évoluer
-				evolue(g,gc);
+				if(cyclique)
+					evolue(g,gc, vieillissement, &compte_voisins_vivants);
+				else
+					evolue(g,gc, vieillissement, &compte_voisins_vivants_nc);					
 				efface_grille(*g);
 				affiche_grille(*g);
 				break;
@@ -97,6 +103,18 @@ void debut_jeu(grille *g, grille *gc){
 
 				alloue_grille(g->nbl, g->nbc, gc);
 				affiche_grille(*g);
+				break;
+			}
+
+			case 'c' :
+			{ // touche c pour alterner entre mode cyclique et non cyclique
+				cyclique = !(cyclique);
+				break;
+			}
+
+			case 'v' :
+			{ // touche v pour activer / désactiver le vieillissement
+				vieillissement = !(vieillissement);
 				break;
 			}
 
