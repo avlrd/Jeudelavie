@@ -15,7 +15,7 @@ $(OPATH) %.o : %.c
 
 clean :
 	rm -rf obj/* bin/*
-	@echo "\nclean\n"
+	@echo "\nClean\n"
 
 
 dist:	
