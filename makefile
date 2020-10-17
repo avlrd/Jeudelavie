@@ -19,7 +19,7 @@ clean :
 
 
 dist:	
-	tar -Jcvf VillardArthur-GoL-v0.1.tar.xz $^
+	tar -Jcvf VillardArthur-GoL-v0.1.tar.xz grilles/ include/ src/ Doxyfile makefile README.md
 	@echo "\nArchive créée\n"
 
 doc :
