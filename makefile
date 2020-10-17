@@ -1,20 +1,26 @@
 CC = gcc -g
 CFLAGS = -W -Wall
-SOURCES = $(wildcard *.c)
-OBJETS = $(SOURCES:.c=.o)
-EXEC = main
+IFLAGS = -I include
+OPATH = obj/
+CPATH = src/
+OBJECTS = $(addprefix $(OPATH), main.o grille.o io.o jeu.o)
 
-$(EXEC) : $(OBJETS)
-	$(CC) $(FLAGS) -o $@ $^
+vpath %.c src
 
-%.o : %.c
-	$(CC) $(CFLAGS) -c $<
+bin/main : $(OBJECTS)
+	$(CC) $(CFLAGS) -o $@ $^
 
-clean:
-	rm $(EXEC) $(OBJETS)
+$(OPATH) %.o : %.c
+	$(CC) $(CFLAGS) -o $@ -c $< $(IFLAGS)
 
-doc:
-	doxygen Doxyfile 
+clean :
+	rm -rf obj/* bin/*
+	@echo "\nclean\n"
+
 
 dist:	
-	tar -Jcvf VillardArthur-GoL-v0.1.tar.xz *.c *.h makefile Doxyfile README.md
+	tar -Jcvf VillardArthur-GoL-v0.1.tar.xz $^
+	@echo "\nArchive créée\n"
+
+doc :
+	doxygen Doxyfile
