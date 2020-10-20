@@ -2,18 +2,10 @@
  *	\file grille.c
  *	fonctions liées aux grilles du jeu
  *	\author Arthur Villard
-*/
+ */
 
 
 #include "grille.h"
-
-/**
- *	\fn void alloue_grille(int l, int c, grille* g)
- *	\param l nombre de ligne
- *	\param c nombre de colonnes
- *	\param g pointeur sur une grille
- *	\brief alloue une grille de taille l*c et initialise toute ses valeurs à 0 (cellule morte)
-*/
 
 void alloue_grille(int l, int c, grille* g)
 {
@@ -25,12 +17,6 @@ void alloue_grille(int l, int c, grille* g)
 		g->cellules[i] = (int*) calloc(c, sizeof(int));
 }
 
-/**
- *	\fn void libere_grille(grille* g)
- *	\param g pointeur sur une grille
- *	\brief liberation de grille
-*/
-
 void libere_grille(grille* g)
 {
 	int i;
@@ -39,13 +25,6 @@ void libere_grille(grille* g)
 		free(g->cellules[i]);
 	free(g->cellules);
 }
-
-/**
- *	\fn void init_grille_from_file(char* filename, grille* g)
- *	\param filename pointeur sur un tableau de charactere (nom du fichier)
- *	\param g pointeur sur une grille
- *	\brief alloue et initialise une grille à partir d'un fichier 
-*/
 
 void init_grille_from_file (char * filename, grille* g){
 	FILE * pfile = NULL;
@@ -69,13 +48,6 @@ void init_grille_from_file (char * filename, grille* g){
 	fclose (pfile);
 	return;
 }
-
-/**
- *	\fn void copie_grille(grille gs, grille gd)
- *	\param gs une grille
- *	\param gd une grille
- *	\brief recopie gs dans gd
-*/
 
 void copie_grille (grille gs, grille gd){
 	int i, j;
