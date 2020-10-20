@@ -2,21 +2,10 @@
  *	\file jeu.c
  *	fonctionnement du jeu
  *	\author Arthur Villard
-*/
+ */
 
 
 #include "jeu.h"
-#include <stdbool.h>
-
-extern bool cyclique;
-
-/**
- *	\fn int compte_voisins_vivants_nc(int i, int j, grille g)
- *	\param i entier
- *	\param j entier
- *	\param g une grille
- *	\brief compte le nombre de voisins vivants de façon cyclique
-*/
 
 int compte_voisins_vivants (int i, int j, grille g){
 	int v = 0, l=g.nbl, c = g.nbc;
@@ -32,51 +21,47 @@ int compte_voisins_vivants (int i, int j, grille g){
 	return v; 
 }
 
-/**
- *	\fn int compte_voisins_vivants_nc(int i, int j, grille g)
- *	\param i entier
- *	\param j entier
- *	\param g une grille
- *	\brief compte le nombre de voisins vivants de façon non cyclique
-*/
+
 
 int compte_voisins_vivants_nc(int i, int j, grille g){
-	int v=0, l=g.nbl, c = g.nbc;
-
-		v+= (i>0&&j>0) ? est_vivante(i-1,j-1,g) : 0;
-		v+= (i>0) ? est_vivante(i-1,j,g) : 0;
-		v+= (i>0&&j>c-1) ? est_vivante(i-1,j+1,g) : 0;
-		v+= (j>0) ? est_vivante(i,j-1,g) : 0;
-		v+= (j<c-1) ? est_vivante(i,j+1,g) : 0;
-		v+= (i<l-1&&j>0) ? est_vivante(i+1,j-1,g) : 0;
-		v+= (i<l-1) ? est_vivante(i+1,j,g) : 0;
-		v+= (i<l-1&&j<c-1) ? est_vivante(i+1,j+1,g) : 0;
-
-	
+	int v = 0, l = g.nbl, c = g.nbc;
+	for(int li = i-1; li <= i+1; li++)
+	{
+		for(int cj = j-1; cj <= j+1; cj++)
+		{
+			if (cj != -1 && cj != c && li != -1 && li != l && (li != i || cj != j))
+				v += est_vivante(li, cj, g);
+		}
+	}
 	return v; 
 }
 
-/** 
- *	\fn void evolue(grille *g, grille *gc)
- *	\param g pointeur vers une grille
- *	\param gc pointeur vers une grille (copie)
- *	\brief fait évoluer la grille g d'un pas dans le temps
- */
 
-void evolue (grille *g, grille *gc, int vieillissement, int (*fonction) (int, int, grille))
+void evolue (grille *g, grille *gc)
 {
 	copie_grille (*g,*gc); // copie temporaire de la grille
-	int i,j,l=g->nbl, c = g->nbc,v;
+	g->temps++;
+
+	int (*compte_voisins_vivants_fct) (int, int, grille);
+	if(g->cyclique)
+		compte_voisins_vivants_fct = &compte_voisins_vivants;
+	else
+		compte_voisins_vivants_fct = &compte_voisins_vivants_nc;
+
+	int i, j, l = g->nbl, c = g->nbc, v;
+
 	for (i=0; i<l; i++)
 	{
 		for (j=0; j<c; ++j)
 		{
-			v = fonction(i, j, *gc);
+			v = compte_voisins_vivants_fct(i, j, *gc);
 			if (est_vivante(i,j,*gc)) 
 			{ // evolution d'une cellule vivante
-				if ((g->cellules[i][j] >= 8 && vieillissement) || (v!=2 && v!=3)) set_morte(i,j,*g);
+				if ((v!=2 && v!= 3) || g->cellules[i][j]>=8)
+					set_morte(i,j,*g);
 
-				else g->cellules[i][j]= g->cellules[i][j]+ 1;
+				else if(g->vieillissement)
+					(g->cellules[i][j])++;
 			}
 			else 
 			{ // evolution d'une cellule morte

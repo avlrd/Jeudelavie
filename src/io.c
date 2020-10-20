@@ -5,47 +5,41 @@
 */
 
 #include "io.h"
-#include <stdbool.h>
 
-bool cyclique = true;
-bool vieillissement = false;
-
-/**
- *	\fn void affiche_trait (int c)
- *	\param c nombre de colonnes
- *	\brief affichage d'un trait horizontal
-*/
-void affiche_trait (int c){
+void affiche_trait (int c)
+{
 	int i;
 	for (i=0; i<c; ++i) printf ("|---");
 	printf("|\n");
 	return;
 }
 
-/**
- *	\fn void affiche_ligne (int c, int* ligne)
- *	\param c nombre de colonnes
- *	\param ligne pointeur vers un tableau
- *	\brief affichage d'une ligne de la grille
-*/
-
-void affiche_ligne (int c, int* ligne){
+void affiche_ligne (int c, int* ligne)
+{
 	int i;
 	for (i=0; i<c; ++i) 
-		if (ligne[i] == 0 ) printf ("|   "); else printf ("| O ");
+		if (ligne[i] == 0 ) printf ("|   "); else printf ("| %d ", ligne[i]);
 	printf("|\n");
 	return;
 }
 
-/**
- *	\fn void affiche_grille (grille g)
- *	\param g une grille
- *	\brief affichage d'une grille
-*/
-
-void affiche_grille (grille g){
+void affiche_grille (grille g)
+{
 	int i, l=g.nbl, c=g.nbc;
 	printf("\n");
+	printf("\nMode cyclique : ");
+	if(!g.cyclique)
+		printf("désactivé\n");
+	else
+		printf("activé\n");
+
+	printf("\nMode vieillissement : ");
+	if(!g.vieillissement)
+		printf("désactivé\n");
+	else
+		printf("activé\n");
+
+	printf("\nTemps d'évolution de la grille : %d \n\n", g.temps);
 	affiche_trait(c);
 	for (i=0; i<l; ++i) {
 		affiche_ligne(c, g.cellules[i]);
@@ -55,34 +49,22 @@ void affiche_grille (grille g){
 	return;
 }
 
-/**
- *	\fn void efface_grille (grille g)
- *	\param g une grille
- *	\brief effacement d'une grille
-*/
-
-void efface_grille (grille g){
-	printf("\n\e[%dA",g.nbl*2 + 5); 
+void efface_grille (grille g)
+{
+	system("clear"); 
 }
 
-/**
- *	\fn void debut_jeu(grille *g, grille *gc)
- *	\param g pointeur sur une grille
- *	\param gc pointeur sur une grille (copie)
- *	\brief fonction qui débute le jeu
-*/
-
 void debut_jeu(grille *g, grille *gc){
-	char c = getchar(); 
+	char c = getchar();
+	g->temps = 0;
+	g->cyclique = 1;
+	g->vieillissement = 1;
 	while (c != 'q') // touche 'q' pour quitter
 	{ 
 		switch (c) {
 			case '\n' : 
 			{ // touche "entree" pour évoluer
-				if(cyclique)
-					evolue(g,gc, vieillissement, &compte_voisins_vivants);
-				else
-					evolue(g,gc, vieillissement, &compte_voisins_vivants_nc);					
+				evolue(g,gc);
 				efface_grille(*g);
 				affiche_grille(*g);
 				break;
@@ -90,19 +72,16 @@ void debut_jeu(grille *g, grille *gc){
 
 			case 'n' :
 			{ // touche "n" pour créer une nouvelle grille
-
-				char newgrille[30];
-
-				printf("Entrez le nom de la nouvelle grille :");
-				scanf("%s", &newgrille);
-				printf("%s", newgrille);
+				char newgrille[max_length];
 				libere_grille(g);
 				libere_grille(gc);
 
+				printf("Entrez le chemin d'accès de la nouvelle grille : ");
+				scanf("%s", newgrille);
 				init_grille_from_file(newgrille, g);
-
 				alloue_grille(g->nbl, g->nbc, gc);
 				affiche_grille(*g);
+				while(getchar() != '\n');
 				break;
 			}
 
