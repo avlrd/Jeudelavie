@@ -68,6 +68,14 @@ static inline void set_vivante(int i, int j, grille g){g.cellules[i][j] = 1;}
  */
 static inline void set_morte(int i, int j, grille g){g.cellules[i][j] = 0;}
 
+/**
+ *	\param i indice de la ligne de la cellule à rendre non-viable
+ *	\param j indice de la colonne de la cellule à rendre non-viable
+ *	\param g une grille
+ *	\brief rend non-viable la cellule (i, j) de la grille g
+ */
+static inline void set_non_viable(int i, int j, grille g){g.cellules[i][j] = -1;}
+
 // teste si la cellule (i,j) de la grille g est vivante
 /**
  *	\param i indice de la ligne de la cellule à tester
@@ -76,6 +84,15 @@ static inline void set_morte(int i, int j, grille g){g.cellules[i][j] = 0;}
  *	\brief teste si la cellule (i, j) est vivante ou non
  */
 static inline int est_vivante(int i, int j, grille g){return g.cellules[i][j] == 1;}
+
+// teste si la cellule (i,j) de la grille g est non_viable
+/**
+ *	\param i indice de la ligne de la cellule à tester
+ *	\param j indice de la ligne de la cellule à tester
+ *	\param g une grille
+ *	\brief teste si la cellule (i, j) est non_viable ou non
+ */
+static inline int est_non_viable(int i, int j, grille g){return g.cellule[i][j] == -1;}
 
 // recopie gs dans gd (sans allocation)
 /**
