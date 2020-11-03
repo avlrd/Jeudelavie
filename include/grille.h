@@ -92,7 +92,7 @@ static inline int est_vivante(int i, int j, grille g){return g.cellules[i][j] ==
  *	\param g une grille
  *	\brief teste si la cellule (i, j) est non_viable ou non
  */
-static inline int est_non_viable(int i, int j, grille g){return g.cellule[i][j] == -1;}
+static inline int est_non_viable(int i, int j, grille g){return g.cellules[i][j] == -1;}
 
 // recopie gs dans gd (sans allocation)
 /**
