@@ -65,7 +65,7 @@ void evolue (grille *g, grille *gc)
 			}
 			else 
 			{ // evolution d'une cellule morte
-				if ( v==3 ) set_vivante(i,j,*g);
+				if ( v==3 && !est_non_viable(i, j, *g)) set_vivante(i,j,*g);
 			}
 		}
 	}
