@@ -87,13 +87,19 @@ void debut_jeu(grille *g, grille *gc){
 
 			case 'c' :
 			{ // touche c pour alterner entre mode cyclique et non cyclique
-				cyclique = !(cyclique);
+				g->cyclique =! g->cyclique;
+				while(getchar() != '\n');
+				efface_grille(*g);
+				affiche_grille(*g);
 				break;
 			}
 
 			case 'v' :
 			{ // touche v pour activer / désactiver le vieillissement
-				vieillissement = !(vieillissement);
+				g->vieillissement =! g->vieillissement;
+				while(getchar() != '\n');
+				efface_grille(*g);
+				affiche_grille(*g);
 				break;
 			}
 
