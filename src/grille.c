@@ -1,6 +1,6 @@
 /**
  *	\file grille.c
- *	fonctions liées aux grilles du jeu
+ *	\brief fonctions liées aux grilles du jeu
  *	\author Arthur Villard
  */
 
