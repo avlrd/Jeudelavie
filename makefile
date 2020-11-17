@@ -1,22 +1,36 @@
-CC = gcc
-CCG = gcc -g
 CFLAGS = -Wall
 IFLAGS = -I include
-OPATH = obj/
-CPATH = src/
+
+MODE = GUI
+
+ifeq ($(MODE), GUI)
+	SRC :=  main.c cairo.c jeu.c grille.c
+	IFLAGS := $(IFLAGS) -I/usr/include/cairo
+	LFLAGS = -lcairo -lm -lX11
+else ifeq ($(MODE), TXT)
+	SRC := main.c io.c jeu.c grille.c
+
+else
+$(error Erreur: Mode disponibles : GUI - TXT)
+endif
+
+
 BPATH = bin/
+OPATH = obj/
 DPATH = doc/
-OBJECTS = $(addprefix $(OPATH), main.o grille.o io.o jeu.o)
+CPATH = src/
+
+OBJECTS = $(addprefix $(OPATH), $(SOURCES:.c=.o))
 
 vpath %.c src
 
 $(BPATH)main : $(OBJECTS)
 	mkdir -p $(BPATH)
-	$(CC) $(CFLAGS) -o $@ $^
+	gcc $(CFLAGS) -o $@ $^ $(LFLAGS)
 
 $(OPATH)%.o : %.c
 	mkdir -p $(OPATH)
-	$(CCG) $(CFLAGS) -o $@ -c $< $(IFLAGS)
+	gcc -g $(CFLAGS) -o $@ -c $< $(IFLAGS)
 
 clean :
 	rm -rf $(BPATH) $(OPATH) $(DPATH)
