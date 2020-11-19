@@ -112,10 +112,11 @@ void debut_jeu_gui(grille *g, grille *gc)
 		cairo_move_to(cr, MOVX, MOVY-20);
 		cairo_show_text(cr, "Temps d'évolution : ");
 		cairo_show_text(cr, str);
+		cairo_show_text(cr, "    ");
 		cairo_show_text(cr, "Mode cyclique : ");
-		(g->cyclique == 0?cairo_show_text(cr, "desactivé"):cairo_show_text(cr, "activé"));
+		(g->cyclique == 0?cairo_show_text(cr, "desactivé    "):cairo_show_text(cr, "activé    "));
 		cairo_show_text(cr, "Mode vieillissement : ");
-		(g->vieillissement == 0?cairo_show_text(cr, "desactivé"):cairo_show_text(cr, "activé"));
+		(g->vieillissement == 0?cairo_show_text(cr, "desactivé    "):cairo_show_text(cr, "activé    "));
 		cairo_destroy(cr);
 
 		XNextEvent(dpy, &e);
