@@ -13,6 +13,9 @@ Projet "Jeu de la Vie" | Semestre 3 automne 2020
 0.1.8	---	Organisation des fichiers  
 0.1.9	---	Amélioration finale avant rendu  
 0.2		---	Version finale du premier rendu  
+0.2.1	--- Corrections diverses pour la suite du projet  
+0.2.2	--- Corrections supplémentaires  
+0.2.3	--- Version finale corrigée, mode texte parfaitement fonctionnel
 
 ## Auteur
 
