@@ -1,3 +1,5 @@
+CC = gcc
+CCG = gcc -g
 CFLAGS = -Wall
 IFLAGS = -I include
 
@@ -19,18 +21,20 @@ BPATH = bin/
 OPATH = obj/
 DPATH = doc/
 CPATH = src/
-
-OBJECTS = $(addprefix $(OPATH), $(SOURCES:.c=.o))
+OBJECTS = $(SRC:.c=.o)
+OBJECTS := $(addprefix $(OPATH), $(OBJECTS))
 
 vpath %.c src
 
 $(BPATH)main : $(OBJECTS)
 	mkdir -p $(BPATH)
-	gcc $(CFLAGS) -o $@ $^ $(LFLAGS)
+	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)
 
 $(OPATH)%.o : %.c
 	mkdir -p $(OPATH)
-	gcc -g $(CFLAGS) -o $@ -c $< $(IFLAGS)
+	$(CCG) $(CFLAGS) -o $@ -c $< $(IFLAGS)
+
+.PHONY : clean
 
 clean :
 	rm -rf $(BPATH) $(OPATH) $(DPATH)
@@ -39,7 +43,7 @@ clean :
 
 
 dist:	
-	tar -cJf VillardArthur-GoL-v0.1.tar.xz $^
+	tar -cJf VillardArthur-GoL-v0.1.tar.xz src/ include/ makefile Doxyfile
 	@echo "\nArchive créée\n"
 
 doc :
