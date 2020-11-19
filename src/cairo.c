@@ -158,7 +158,7 @@ void debut_jeu_gui(grille *g, grille *gc)
 						cairo_set_font_size(cr, 15);
 						cairo_set_source_rgb(cr, 1, 1, 1);
 						cairo_move_to(cr, MOVX, MOVY-60);
-						cairo_show_text(cr, "Entrez le chemin d'accès de la nouvelle grille : ");
+						cairo_show_text(cr, "Entrez le chemin d'accès de la nouvelle grille dans le terminal : ");
 						XNextEvent(dpy, &e);
 						cairo_destroy(cr);
 						char newgrille[max_length];
