@@ -39,7 +39,7 @@ int compte_voisins_vivants_nc(int i, int j, grille g){
 
 void evolue (grille *g, grille *gc)
 {
-	copie_grille (*g,*gc); // copie temporaire de la grille
+	copie_grille(*g, *gc); // copie temporaire de la grille
 	g->temps++;
 
 	int (*compte_voisins_vivants_fct) (int, int, grille);
@@ -52,20 +52,20 @@ void evolue (grille *g, grille *gc)
 
 	for (i=0; i<l; i++)
 	{
-		for (j=0; j<c; ++j)
+		for (j=0; j<c; j++)
 		{
 			v = compte_voisins_vivants_fct(i, j, *gc);
-			if (est_vivante(i,j,*gc)) 
+			if (est_vivante(i, j, *g)) 
 			{ // evolution d'une cellule vivante
 				if ((v!=2 && v!= 3) || g->cellules[i][j]>=8)
-					set_morte(i,j,*g);
+					set_morte(i, j, *g);
 
 				else if(g->vieillissement)
 					(g->cellules[i][j])++;
 			}
 			else 
 			{ // evolution d'une cellule morte
-				if ( v==3 && !est_non_viable(i, j, *g)) set_vivante(i,j,*g);
+				if (v==3) set_vivante(i, j, *g); //&& !est_non_viable(i, j, *g)
 			}
 		}
 	}
