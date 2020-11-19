@@ -83,7 +83,7 @@ static inline void set_non_viable(int i, int j, grille g){g.cellules[i][j] = -1;
  *	\param g une grille
  *	\brief teste si la cellule (i, j) est vivante ou non
  */
-static inline int est_vivante(int i, int j, grille g){return g.cellules[i][j] == 1;}
+static inline int est_vivante(int i, int j, grille g){return g.cellules[i][j] > 0;}
 
 // teste si la cellule (i,j) de la grille g est non_viable
 /**
