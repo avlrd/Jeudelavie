@@ -4,11 +4,32 @@
  *	\author Arthur Villard
 */
 
-
 #include <stdio.h>
 #include "grille.h"
-#include "io.h"
 #include "jeu.h"
+#ifndef MODE
+#include "cairo.h"
+
+int main (int argc, char ** argv)
+{
+	if (argc != 2)
+	{
+		printf("tusage : main <fichier grille>\n");
+		return 1;
+	}
+
+	grille g, gc;
+	init_grille_from_file(argv[1], &g);
+	alloue_grille(g.nbl, g.nbc, &gc);
+	debut_jeu_gui(&g, &gc);
+	libere_grille(&g);
+	libere_grille(&gc);
+	return 0;
+}
+
+
+#else
+#include "io.h"
 
 /**
  *	\fn int main(int argc, char** argv)
@@ -36,3 +57,5 @@ int main (int argc, char ** argv) {
 	libere_grille(&gc);
 	return 0;
 }
+
+#endif
