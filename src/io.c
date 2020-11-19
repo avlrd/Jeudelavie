@@ -18,7 +18,7 @@ void affiche_ligne (int c, int* ligne)
 {
 	int i;
 	for (i=0; i<c; ++i) 
-		if (ligne[i] == 0 ) printf ("|   "); else if(ligne[i] == -1) printf("| X "); else printf ("| %d ", ligne[i]);
+		if (ligne[i] == 0 ) printf ("|   "); else if(ligne[i] == -1) printf("| X "); else printf ("| %d ",ligne[i]);
 	printf("|\n");
 	return;
 }
@@ -55,10 +55,11 @@ void efface_grille (grille g)
 }
 
 void debut_jeu(grille *g, grille *gc){
-	char c = getchar();
 	g->temps = 0;
 	g->cyclique = 1;
 	g->vieillissement = 1;
+	affiche_grille(*g);
+	char c = getchar();
 	while (c != 'q') // touche 'q' pour quitter
 	{ 
 		switch (c) {
