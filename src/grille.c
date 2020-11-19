@@ -11,17 +11,22 @@ void alloue_grille(int l, int c, grille* g)
 {
 	g->nbl = l;
 	g->nbc = c;
-	int i;
+	g->temps=0;
 	g->cellules = (int**) malloc(l*sizeof(int*));
-	for(i=0; i<l; i++)
+	if(g->cellules==NULL)
+		return exit(1);
+	for(int i=0; i<l; i++)
+	{
 		g->cellules[i] = (int*) calloc(c, sizeof(int));
+		if(g->cellules==NULL)
+			return exit(1);
+	}
 }
 
 void libere_grille(grille* g)
 {
-	int i;
 	int l = g->nbl;
-	for(i=0; i<l; i++)
+	for(int i=0; i<l; i++)
 		free(g->cellules[i]);
 	free(g->cellules);
 }
@@ -31,7 +36,7 @@ void init_grille_from_file (char * filename, grille* g){
 	pfile = fopen(filename, "r");
 	assert (pfile != NULL);
 	
-	int i,j,n,l,c,vivantes=0, non_viable=0;
+	int i,j,n,l,c,vivantes=0, non_viables=0;
 	
 	fscanf(pfile, "%d", & l);
 	fscanf(pfile, "%d", & c);
@@ -45,8 +50,8 @@ void init_grille_from_file (char * filename, grille* g){
 		set_vivante(i,j,*g);
 	}
 
-	fscanf(pfile, "%d", & non_viable);
-	for (n=0; n< non_viable; ++n){
+	fscanf(pfile, "%d", & non_viables);
+	for (n=0; n< non_viables; ++n){
 		fscanf(pfile, "%d", & i);
 		fscanf(pfile, "%d", & j);
 		set_non_viable(i,j,*g);
