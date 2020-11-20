@@ -2,15 +2,15 @@ CC = gcc
 CCG = gcc -g
 CFLAGS = -Wall
 IFLAGS = -I include
-
+LIBFLAGS = -lgj -L$(LPATH)
 MODE = GUI
 
 ifeq ($(MODE), GUI)
-	SRC :=  main.c cairo.c jeu.c grille.c
+	SRC = main.c cairo.c
 	IFLAGS := $(IFLAGS) -I/usr/include/cairo
 	LFLAGS = -lcairo -lm -lX11
 else ifeq ($(MODE), TXT)
-	SRC := main.c io.c jeu.c grille.c
+	SRC = main.c io.c
 
 else
 $(error Erreur: Mode disponibles : GUI - TXT)
@@ -21,14 +21,23 @@ BPATH = bin/
 OPATH = obj/
 DPATH = doc/
 CPATH = src/
-OBJECTS = $(SRC:.c=.o)
-OBJECTS := $(addprefix $(OPATH), $(OBJECTS))
+LPATH = lib/
+MAINOBJ = $(SRC:.c=.o)
+MAINOBJ := $(addprefix $(OPATH), $(MAINOBJ))
+LIBOBJ = grille.o jeu.o
+LIBOBJ := $(addprefix $(OPATH), $(LIBOBJ))
 
 vpath %.c src
 
-$(BPATH)main : $(OBJECTS)
+$(BPATH)main : $(MAINOBJ) $(LPATH)libgj.a
 	mkdir -p $(BPATH)
-	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)
+	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS) $(LIBFLAGS)
+
+$(LPATH)libgj.a : $(LIBOBJ)
+	mkdir -p $(LPATH)
+	ar -crv libgj.a $(LIBOBJ)
+	ranlib libgj.a
+	mv *.a $(LPATH)
 
 $(OPATH)%.o : %.c
 	mkdir -p $(OPATH)
@@ -37,8 +46,7 @@ $(OPATH)%.o : %.c
 .PHONY : clean
 
 clean :
-	rm -rf $(BPATH) $(OPATH) $(DPATH)
-	rmdir $(DPATH)
+	rm -rf $(BPATH) $(OPATH) $(DPATH) $(LPATH)
 	@echo "\nClean\n"
 
 
