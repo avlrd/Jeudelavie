@@ -18,10 +18,10 @@
 #include <X11/Xutil.h>
 
 #define SIZEX 1500
-#define SIZEY 1500
-#define SIZECELL 30
-#define MOVX 20
-#define MOVY 100
+#define SIZEY 1000
+#define SIZECELL 50
+#define MOVEX 20
+#define MOVEY 100
 #define max_length 128
 
 /**

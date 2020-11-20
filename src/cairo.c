@@ -13,26 +13,26 @@ void affiche_grille_gui(cairo_surface_t *surface, grille g)
 	cr = cairo_create(surface);
 
 	//background
-	cairo_set_source_rgb(cr, 0.1, 0.1, 0.1);
+	cairo_set_source_rgb(cr, 0.0, 0.0, 0.0);
 	cairo_paint(cr);
 
 	int l = g.nbl;
 	int c = g.nbc;
 
-	cairo_set_source_rgb(cr, 1.0, 0.0, 0.0);
+	cairo_set_source_rgb(cr, 1.0, 1.0, 1.0);
 
 	for(int i = 0; i <= l; i++)
 	{
-		cairo_move_to(cr, MOVX, MOVY + (i*SIZECELL));
-		cairo_line_to(cr, MOVX + (c*SIZECELL), MOVY + (i*SIZECELL));
+		cairo_move_to(cr, MOVEX, MOVEY + (i*SIZECELL));
+		cairo_line_to(cr, MOVEX + (c*SIZECELL), MOVEY + (i*SIZECELL));
 		cairo_set_line_width(cr, 1);
 		cairo_stroke(cr);
 	}
 
 	for(int i = 0; i <= c; i++)
 	{
-		cairo_move_to(cr, MOVX + (i*SIZECELL), MOVY);
-		cairo_line_to(cr, MOVX + (i*SIZECELL), MOVY + (l*SIZECELL));
+		cairo_move_to(cr, MOVEX + (i*SIZECELL), MOVEY);
+		cairo_line_to(cr, MOVEX + (i*SIZECELL), MOVEY + (l*SIZECELL));
 		cairo_set_line_width(cr, 1);
 		cairo_stroke(cr);
 	}
@@ -44,14 +44,14 @@ void affiche_grille_gui(cairo_surface_t *surface, grille g)
 		{
 			if(est_non_viable(i, j, g))
 			{
-				cairo_rectangle(cr, MOVX + (j*SIZECELL)+1, MOVY + (i*SIZECELL)+1, SIZECELL-2, SIZECELL-2);
+				cairo_rectangle(cr, MOVEX + (j*SIZECELL)+1, MOVEY + (i*SIZECELL)+1, SIZECELL-2, SIZECELL-2);
 				cairo_set_source_rgb(cr, 0.0, 0.0, 1.0);
 				cairo_fill(cr);
 			}
 			else if(est_vivante(i, j, g))
 			{
 				int tmp = (g.cellules[i][j]-1);
-				cairo_rectangle(cr, MOVX + (j*SIZECELL)+1, MOVY + (i*SIZECELL)+1, SIZECELL-2, SIZECELL-2);
+				cairo_rectangle(cr, MOVEX + (j*SIZECELL)+1, MOVEY + (i*SIZECELL)+1, SIZECELL-2, SIZECELL-2);
 				cairo_set_source_rgb(cr, (float) (tmp/8.0f), (float) 1-(tmp/8.0f), 0.0);
 				cairo_fill(cr);
 			}
@@ -109,7 +109,7 @@ void debut_jeu_gui(grille *g, grille *gc)
 		cairo_select_font_face(cr, "monospace", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
 		cairo_set_font_size(cr, 15);
 		cairo_set_source_rgb(cr, 1, 1, 1);
-		cairo_move_to(cr, MOVX, MOVY-20);
+		cairo_move_to(cr, MOVEX, MOVEY-20);
 		cairo_show_text(cr, "Temps d'évolution : ");
 		cairo_show_text(cr, str);
 		cairo_show_text(cr, "    ");
@@ -157,7 +157,7 @@ void debut_jeu_gui(grille *g, grille *gc)
 						cairo_select_font_face(cr, "monospace", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
 						cairo_set_font_size(cr, 15);
 						cairo_set_source_rgb(cr, 1, 1, 1);
-						cairo_move_to(cr, MOVX, MOVY-60);
+						cairo_move_to(cr, MOVEX, MOVEY-60);
 						cairo_show_text(cr, "Entrez le chemin d'accès de la nouvelle grille dans le terminal : ");
 						XNextEvent(dpy, &e);
 						cairo_destroy(cr);
