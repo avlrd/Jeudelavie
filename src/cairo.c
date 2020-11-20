@@ -183,6 +183,12 @@ void debut_jeu_gui(grille *g, grille *gc)
 						break;
 					}
 
+					case 'o':
+					{//test d'oscilliation
+						
+						break;
+					}
+
 					case 'q':
 					{
 						quit = 1;
