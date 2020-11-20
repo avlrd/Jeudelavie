@@ -18,14 +18,15 @@ Projet "Jeu de la Vie" | Semestre 3 automne 2020
 0.2.3	--- Version finale corrigée, mode texte parfaitement fonctionnel  
 0.2.8	--- Première version de l'interface graphique  
 0.2.9	--- Mise à jour visuelles  
-0.3 	--- Version finale niveau 4
+0.3 	--- Version finale niveau 4  
 
 ## Utilisation
 
-Compiler avec 'make MODE="mode"'. Executer : 'bin/main grilles/"nom de la grille".txt'
-Supprimer les fichiers temporaires avec 'make clean'
-Créer la documentation avec 'make doc'
-Créer une archive comprenant le code source avec 'make dist'
+Compiler : 'make MODE="mode"'  
+Executer : 'bin/main grilles/"nom de la grille".txt'  
+Supprimer les fichiers temporaires avec 'make clean'  
+Créer la documentation avec 'make doc'  
+Créer une archive comprenant le code source avec 'make dist'  
 
 ## Auteur
 
