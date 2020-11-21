@@ -195,16 +195,43 @@ void debut_jeu_gui(grille *g, grille *gc)
 							cairo_show_text(cr, "Grille morte");
 						else
 						{
-							int o = oscillante(*g, 0);
-							if(o == 1)
-								cairo_show_text(cr, "Grille statique");
+							int o = oscillante_delai(*g);
+							if((o == MAX_OI) || (o == -1))
+								cairo_show_text(cr, "Grille non-oscillante");
+							else if(o == 0)
+							{
+								o = oscillante(*g, o);
+								if(o == 1)
+									cairo_show_text(cr, "Grille statique");
+								else
+								{
+									cairo_show_text(cr, "Grille oscillante de periode : ");
+									sprintf(str, "%d", o);
+									cairo_show_text(cr, str);
+								}
+							}
 							else
 							{
-								cairo_show_text(cr, "Grille oscillante de période : ");
-								sprintf(str, "%d", o);
-								cairo_show_text(cr, str);
+								int obis = oscillante(*g, o);
+								if(obis == 1)
+								{
+									cairo_show_text(cr, "Grille statique apres ");
+									sprintf(str, "%d", o);
+									cairo_show_text(cr, str);
+									cairo_show_text(cr, " pas");
+								}
+								else
+								{
+									cairo_show_text(cr, "Grille oscillante apres ");
+									sprintf(str, "%d", o);
+									cairo_show_text(cr, str);
+									cairo_show_text(cr, " pas --- Periode : ");
+									sprintf(str, "%d", obis);
+									cairo_show_text(cr, str);
+								}
 							}
 						}
+						XNextEvent(dpy, &e);
 						XNextEvent(dpy, &e);
 						cairo_destroy(cr);
 						break;

@@ -110,11 +110,27 @@ void debut_jeu(grille *g, grille *gc){
 					printf("Grille morte\n");
 				else
 				{
-					int o = oscillante(*g, 0);
-					if(o == 1)
-						printf("Grille statique\n");
+					int o = oscillante_delai(*g);
+					if((o == MAX_OI) || (o == -1))
+						printf("Grille non-oscillante\n");
+					else if(o == 0)
+					{
+						o = oscillante(*g, o);
+
+						if(o == 1)
+							printf("Grille statique\n");
+						else
+							printf("Grille oscillante de periode %d\n", o);
+					}
 					else
-						printf("Grille oscillante de période : %d\n", o);
+					{
+						int obis = oscillante(*g, o);
+
+						if(obis == 1)
+							printf("Grille statique apres %d pas\n", o);
+						else
+							printf("Grille oscillante apres %d pas\nPeriode : %d\n", o, obis);
+					}
 				}
 				while(getchar() != '\n');
 				break;
