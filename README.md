@@ -19,6 +19,13 @@ Projet "Jeu de la Vie" | Semestre 3 automne 2020
 0.2.8	--- Première version de l'interface graphique  
 0.2.9	--- Mise à jour visuelles  
 0.3 	--- Version finale niveau 4  
+0.3.1	--- Bibliothèque contenant la gestion du jeu et des grilles ajoutée  
+0.3.2	--- Correctifs divers, bug mode texte  
+0.3.3	--- Correctif majeur : mode texte fonctionnel  
+0.3.4	--- Ajout de la gestion de test d'oscillation, quelques bugs  
+0.3.8	--- Ajout de l'oscillation avec délai + correction majeure concernant les cellules non-viables  
+0.3.9	--- Finalisation des fonctions d'execution du jeu avec les tests d'oscillation  
+0.4		--- Rendu final du projet
 
 ## Utilisation
 
