@@ -11,6 +11,7 @@ ifeq ($(MODE), GUI)
 	LFLAGS = -lcairo -lm -lX11
 else ifeq ($(MODE), TXT)
 	SRC = main.c io.c
+	CFLAGS := -DMODE=TXT
 
 else
 $(error Erreur: Mode disponibles : GUI - TXT)
