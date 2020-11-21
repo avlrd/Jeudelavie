@@ -25,7 +25,7 @@ Projet "Jeu de la Vie" | Semestre 3 automne 2020
 0.3.4	--- Ajout de la gestion de test d'oscillation, quelques bugs  
 0.3.8	--- Ajout de l'oscillation avec délai + correction majeure concernant les cellules non-viables  
 0.3.9	--- Finalisation des fonctions d'execution du jeu avec les tests d'oscillation  
-0.4		--- Rendu final du projet
+1.0		--- Rendu final du projet
 
 ## Utilisation
 
