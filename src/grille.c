@@ -66,3 +66,41 @@ void copie_grille (grille gs, grille gd){
 	for (i=0; i<gs.nbl; ++i) for (j=0; j<gs.nbc; ++j) gd.cellules[i][j] = gs.cellules[i][j];
 	return;	
 }
+
+int egalite_grille(grille *g, grille *gc)
+{
+	int check = 1;
+	int i=0, j=0;
+
+	while(i<g->nbl)
+	{
+		j=0;
+		while((j<g->nbc) && (check ==1))
+		{
+			if(g->cellules[i][j] != gc->cellules[i][j])
+				check = 0;
+			j++;
+		}
+		i++;
+	}
+	return check;
+}
+
+int null_grille(grille *g)
+{
+	int check = 1;
+	int i=0, j=0;
+
+	while(i<g->nbl)
+	{
+		j=0;
+		while((j<g->nbc) && (check == 1))
+		{
+			if(est_vivante(i, j, *g))
+				check = 0;
+			j++;
+		}
+		i++;
+	}
+	return check;
+}

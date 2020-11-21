@@ -103,4 +103,19 @@ static inline int est_non_viable(int i, int j, grille g){return g.cellules[i][j]
  */
 void copie_grille (grille gs, grille gd);
 
+/**
+ *	\fn int egalite_grille(grille *g, grille *gc);
+ *	\param g une grille
+ *	\param gc une grille
+ *	\brief teste l'égalité de deux grilles
+ */
+int egalite_grille(grille *g, grille *gc);
+
+/**
+ *	\fn int null_grille(grille *g);
+ *	\param g une grille
+ *	\brief teste si une grille ne contient que des cellules mortes à l'instant ou elle est testée
+ */
+int null_grille(grille *g);
+
 #endif
