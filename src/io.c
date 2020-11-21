@@ -104,6 +104,22 @@ void debut_jeu(grille *g, grille *gc){
 				break;
 			}
 
+			case 'o' :
+			{ // touche o pour tester l'oscillation
+				if(null_grille(g))
+					printf("Grille morte\n");
+				else
+				{
+					int o = oscillante(*g, 0);
+					if(o == 1)
+						printf("Grille statique\n");
+					else
+						printf("Grille oscillante de période : %d\n", o);
+				}
+				while(getchar() != '\n');
+				break;
+			}
+
 			default : 
 			{ // touche non traitée
 				printf("\n\e[1A");

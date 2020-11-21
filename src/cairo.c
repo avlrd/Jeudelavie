@@ -185,7 +185,28 @@ void debut_jeu_gui(grille *g, grille *gc)
 
 					case 'o':
 					{//test d'oscilliation
-						
+						cairo_t *cr = cairo_create(cs);
+						cairo_select_font_face(cr, "monospace", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
+						cairo_set_font_size(cr, 15);
+						cairo_set_source_rgb(cr, 1, 1, 1);
+						cairo_move_to(cr, MOVEX, MOVEY-60);
+
+						if(null_grille(g))
+							cairo_show_text(cr, "Grille morte");
+						else
+						{
+							int o = oscillante(*g, 0);
+							if(o == 1)
+								cairo_show_text(cr, "Grille statique");
+							else
+							{
+								cairo_show_text(cr, "Grille oscillante de période : ");
+								sprintf(str, "%d", o);
+								cairo_show_text(cr, str);
+							}
+						}
+						XNextEvent(dpy, &e);
+						cairo_destroy(cr);
 						break;
 					}
 
