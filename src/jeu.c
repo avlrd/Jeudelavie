@@ -4,7 +4,6 @@
  *	\author Arthur Villard
  */
 
-
 #include "jeu.h"
 
 int compte_voisins_vivants (int i, int j, grille g){
@@ -21,8 +20,6 @@ int compte_voisins_vivants (int i, int j, grille g){
 	return v; 
 }
 
-
-
 int compte_voisins_vivants_nc(int i, int j, grille g){
 	int v = 0, l = g.nbl, c = g.nbc;
 	for(int li = i-1; li <= i+1; li++)
@@ -35,6 +32,42 @@ int compte_voisins_vivants_nc(int i, int j, grille g){
 	}
 	return v; 
 }
+
+int oscillante(grille g, int x)
+{
+	int i=0, j=0;
+	grille copie, test, tmp;
+
+	alloue_grille(g.nbl, g.nbc, &copie);
+	copie_grille(g, copie);
+	alloue_grille(g.nbl, g.nbc, &test);
+
+	for(i=0; i<x; i++)
+		evolue(&copie, &test);
+
+	i=0;
+
+	alloue_grille(g.nbl, g.nbc, &tmp);
+	copie_grille(copie, tmp);
+
+	while((j<MAX_O) && (i==0))//OSCILL_MAX dans grille.h
+	{
+		evolue(&copie, &test);
+		if(egalite_grille(&tmp, &copie) == 1)
+			i = j;
+		j++;
+	}
+
+	if(null_grille(&g) == 1)
+		i = -1;
+
+	libere_grille(&copie);
+	libere_grille(&test);
+	libere_grille(&tmp);
+
+	return i;
+}
+
 
 
 void evolue (grille *g, grille *gc)

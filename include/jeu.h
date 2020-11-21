@@ -9,6 +9,7 @@
 #define __JEU_H
 
 #include "grille.h"
+#define MAX_O 1000
 
 // modulo modifié pour traiter correctement les bords i=0 et j=0
 // dans le calcul des voisins avec bords cycliques
@@ -50,5 +51,13 @@ int compte_voisins_vivants_nc(int i, int j, grille g);
  *	\brief fait évoluer la grille g d'un pas dans le temps
  */
 void evolue (grille *g, grille *gc);
+
+/**
+ *	\fn int oscillante(grille g, int x):
+ *	\param g une grille
+ *	\param x un entier
+ *	\brief teste si une grille est oscillante ou pas et donne sa période
+ */
+int oscillante(grille g, int x);
 
 #endif
