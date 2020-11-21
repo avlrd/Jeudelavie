@@ -15,6 +15,7 @@ else ifeq ($(MODE), TXT)
 
 else
 $(error Erreur: Mode disponibles : GUI - TXT)
+
 endif
 
 
