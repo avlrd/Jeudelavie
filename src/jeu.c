@@ -35,7 +35,7 @@ int compte_voisins_vivants_nc(int i, int j, grille g){
 
 int oscillante(grille g, int x)
 {
-	int i=0, j=0;
+	int i=0, j=1;
 	grille copie, test, tmp;
 
 	alloue_grille(g.nbl, g.nbc, &copie);
@@ -68,7 +68,32 @@ int oscillante(grille g, int x)
 	return i;
 }
 
+int oscillante_delai(grille g)
+{
+	int i, j, check=0;
 
+	grille copie, tmp;
+	alloue_grille(g.nbl, g.nbc, &tmp);
+	alloue_grille(g.nbl, g.nbc, &copie);
+	copie_grille(g, copie);
+
+	for(i=0; (i<MAX_OI) && (check==0); i++)
+	{
+		j = oscillante(copie, 0);
+		if(j != 0)
+			check = 1;
+		evolue(&copie, &tmp);
+	}
+
+	libere_grille(&tmp);
+	libere_grille(&copie);
+	
+	if(j == -1)
+		return -1;
+	if(check == 1)
+		return i-1;
+	return i;
+}
 
 void evolue (grille *g, grille *gc)
 {
@@ -98,7 +123,7 @@ void evolue (grille *g, grille *gc)
 			}
 			else 
 			{ // evolution d'une cellule morte
-				if (v==3) set_vivante(i, j, *g); //&& !est_non_viable(i, j, *g)
+				if ((v==3) && !est_non_viable(i, j, *g)) set_vivante(i, j, *g);
 			}
 		}
 	}

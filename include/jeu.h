@@ -10,6 +10,7 @@
 
 #include "grille.h"
 #define MAX_O 1000
+#define MAX_OI 1000
 
 // modulo modifié pour traiter correctement les bords i=0 et j=0
 // dans le calcul des voisins avec bords cycliques
@@ -59,5 +60,12 @@ void evolue (grille *g, grille *gc);
  *	\brief teste si une grille est oscillante ou pas et donne sa période
  */
 int oscillante(grille g, int x);
+
+/**
+ *	\fn int oscillante_indirecte(grille g)
+ *	\param g une grille
+ *	\brief retourne le nombre de pas avant la période
+ */
+int oscillante_delai(grille g);
 
 #endif
