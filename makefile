@@ -53,7 +53,7 @@ clean :
 
 
 dist:	
-	tar -cJf VillardArthur-GoL-v0.1.tar.xz src/ include/ makefile Doxyfile
+	tar -cJf VillardArthur-GoL-v1.0.tar.xz src/ include/ makefile Doxyfile
 	@echo "\nArchive créée\n"
 
 doc :
