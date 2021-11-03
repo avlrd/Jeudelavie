@@ -38,3 +38,4 @@ Créer une archive comprenant le code source avec 'make dist'
 ## Auteur
 
 Arthur VILLARD
+Copyright©
